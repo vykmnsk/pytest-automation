@@ -1,8 +1,18 @@
 # pytest-automation
 
 ## Local setup (Windows)
-1. Download and manually install Python 3 from https://www.python.org/downloads/
 
+1. Download and run Miniconda with Python 3.6 64-bit exe installer from https://conda.io/miniconda.html
+
+1. Create and activate python virtual environment
+    ```
+    conda create --name pytestauto
+    activate pytestauto
+    ```
+
+
+
+1. Download and manually install Python 3 from https://www.python.org/downloads/
 1. Install python Virtual Environment
     ```
     python -m pip install virtualenv
@@ -13,10 +23,14 @@
     deactivate
     ```
 
+1. Upgraded to the latests pip
+    ```
+    python -m pip install --upgrade pip
+    ```
+
 1. Install required Python Libraries
     ```
     cd <project_dir>
-    env\Scripts\activate
     pip install -r requirements.txt
     ```
 

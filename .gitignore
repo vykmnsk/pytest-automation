@@ -2,11 +2,7 @@ __pycache__/
 .pytest_cache/
 .cache
 .Python
-.vs/
 .vscode/
-env/
-env-sut/
-notebook/
-notes/*
-output/
-tmp/
+_notebooks/
+_testenv/
+_tmp/
