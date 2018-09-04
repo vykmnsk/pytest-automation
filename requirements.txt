@@ -1,0 +1,6 @@
+pytest
+pyaml
+pyodbc
+requests
+pydocumentdb
+azure-storage-file
