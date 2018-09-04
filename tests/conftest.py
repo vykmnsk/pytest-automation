@@ -67,7 +67,7 @@ def apiBaseUrl(config, envName):
 
 @pytest.fixture(scope='session')
 def apiCode(request, envName):
-    anytest.ensureSupportedEnv(envName, ['nprod-aglnet', 'nprod-azure', 'dev-aglnet'])
+    anytest.ensureSupportedEnv(envName, ['nprod-azure', ])
     return readVerifyOptVal(request, "--apicode")
 
 
@@ -92,19 +92,6 @@ def handle_datetimeoffset(dto_value):
 
 
 @pytest.fixture(scope='session')
-def dbConnInfoServer(request, config, envName):
-    anytest.ensureSupportedEnv(envName, ['nprod-aglnet', 'dev-aglnet'])
-    dbUid = readVerifyOptVal(request, "--dbinfo-uid")
-    dbPwd = readVerifyOptVal(request, "--dbinfo-pwd")
-    connStr = config['DB_INFO_SERVER_CONN'] + f' UID={dbUid}; PWD={dbPwd};'
-    # print(f'connStr={connStr}')
-    conn = pyodbc.connect(connStr)
-    cursor = conn.cursor()
-    prefix = config.get('DB_INFO_SERVER_PREFIX', '')
-    return cursor, prefix
-
-
-@pytest.fixture(scope='session')
 def cosmosClient(request, config):
     key = readVerifyOptVal(request, "--cosmoskey")
     return docDbClient.DocumentClient(config['COSMOSDB_URL'], {'masterKey': key})
@@ -112,7 +99,7 @@ def cosmosClient(request, config):
 
 @pytest.fixture(scope='session')
 def ftp(request, config, envName):
-    anytest.ensureSupportedEnv(envName, ['nprod-aglnet', 'dev-aglnet'])
+    anytest.ensureSupportedEnv(envName, ['local'])
     usr = readVerifyOptVal(request, "--ftpuid")
     pwd = readVerifyOptVal(request, "--ftppwd")
     ftp = FTP()
@@ -124,7 +111,7 @@ def ftp(request, config, envName):
 
 @pytest.fixture(scope='session')
 def fileService(request, config, envName):
-    anytest.ensureSupportedEnv(envName, ['nprod-aglnet', 'nprod-azure', 'dev-aglnet', 'nprod-outside'])
+    anytest.ensureSupportedEnv(envName, ['nprod-azure', 'nprod-outside'])
     key = readVerifyOptVal(request, "--storekey")
     return FileService(account_name=config['STORAGE_ACCOUNT'], account_key=key)
 
