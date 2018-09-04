@@ -58,7 +58,7 @@ def config(envName):
 
 @pytest.fixture(scope='session')
 def apiBaseUrl(config, envName):
-    baseUrl = config['BASE_API_URL']
+    baseUrl = config['API_BASE_URL']
     if baseUrl.endswith('/'):
         return baseUrl[:-1]
     else:
