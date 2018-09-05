@@ -4,5 +4,5 @@ __pycache__/
 .Python
 .vscode/
 _notebooks/
-_testenv/
 _tmp/
+# _testenv/
