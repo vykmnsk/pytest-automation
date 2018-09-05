@@ -4,26 +4,15 @@
 
 1. Download and run Miniconda with Python 3.6 64-bit exe installer from https://conda.io/miniconda.html
 
-1. Create and activate python virtual environment
+1. Create/activate/deactivate python virtual environment
     ```
     conda create --name pytestauto
     activate pytestauto
-    ```
-
-
-
-1. Download and manually install Python 3 from https://www.python.org/downloads/
-1. Install python Virtual Environment
-    ```
-    python -m pip install virtualenv
-    ```
-1. Activate/deactivate virtual environment
-    ```
-    env\Scripts\activate
+    <do some work> ...
     deactivate
     ```
 
-1. Upgraded to the latests pip
+1. Upgrade to the latests pip
     ```
     python -m pip install --upgrade pip
     ```
