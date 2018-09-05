@@ -1,0 +1,40 @@
+FROM ubuntu:17.10
+
+RUN apt-get -y update && apt-get install -y \
+    python3.6 \
+    python3-pip \
+    python3-dev \
+    unixodbc-dev \
+    curl \
+    dos2unix
+
+RUN echo "Downloading and installing the Microsoft ODBC Driver for SQL Server"
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/ubuntu/17.10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get update -y && \
+    ACCEPT_EULA=Y apt-get install -y msodbcsql17
+
+RUN echo "Setting up symlinks for python2.6 to python"
+RUN ln -s /usr/bin/python3.6 /usr/bin/python && \
+    ln -s /usr/bin/pip3 /usr/bin/pip
+
+RUN echo "Setting up working directory"
+WORKDIR /workdir
+COPY resources/ resources/
+COPY tests/ tests/
+RUN rm -rf tests/__pycache__
+COPY config.yml .
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+
+COPY docker-entrypoint.sh .
+RUN dos2unix ./docker-entrypoint.sh
+RUN echo "Allow entry point to be executable"
+RUN chmod +x  ./docker-entrypoint.sh
+ENTRYPOINT [ "./docker-entrypoint.sh" ]
+
+# debug
+# RUN apt-get update && apt-get install netcat iputils-ping -y
+# RUN nc -z -v -w30 <some-server> <some-port>
+# CMD pytest -svvrs --tb=short ./tests/test_dbConnections.py
