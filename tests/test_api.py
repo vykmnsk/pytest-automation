@@ -9,7 +9,7 @@ ENDPOINT = 'posts'
 
 @pytest.fixture(scope='module')
 def apiUrl(apiBaseUrl, envName):
-    anytest.ensureSupportedEnv(envName, ['local'])
+    anytest.ensureSupportedEnv(envName, ['dev-local'])
     return f'{apiBaseUrl}/{ENDPOINT}'
 
 

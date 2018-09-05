@@ -9,8 +9,8 @@ import struct
 
 
 def pytest_addoption(parser):
-    parser.addoption("--env", action="store", default="local",
-        help="provide SUT environment to test: [local | nprod]")
+    parser.addoption("--env", action="store", default="dev-local",
+        help="provide SUT environment to test: [dev-local | tst-cloud]")
     parser.addoption("--apicode", action="store",
         help="provide key code for API")
     parser.addoption("--cosmoskey", action="store",
@@ -18,15 +18,11 @@ def pytest_addoption(parser):
     parser.addoption("--storekey", action="store",
         help="provide storage account key for Azure File Service")
     parser.addoption("--dbuid", action="store",
-        help="provide UID for SQLServer")
+        help="provide Username for SQLServer")
     parser.addoption("--dbpwd", action="store",
-        help="provide PWD for SQLServer")
-    parser.addoption("--dbinfo-uid", action="store",
-        help="provide UID for SQLServer")
-    parser.addoption("--dbinfo-pwd", action="store",
-        help="provide PWD for SQLServer")
+        help="provide Password for SQLServer")
     parser.addoption("--ftpuid", action="store",
-        help="provide User for FTP server")
+        help="provide Username for FTP server")
     parser.addoption("--ftppwd", action="store",
         help="provide Password for FTP server")
 
@@ -67,7 +63,7 @@ def apiBaseUrl(config, envName):
 
 @pytest.fixture(scope='session')
 def apiCode(request, envName):
-    anytest.ensureSupportedEnv(envName, ['nprod-azure', ])
+    anytest.ensureSupportedEnv(envName, ['tst-cloud', ])
     return readVerifyOptVal(request, "--apicode")
 
 
@@ -99,7 +95,7 @@ def cosmosClient(request, config):
 
 @pytest.fixture(scope='session')
 def ftp(request, config, envName):
-    anytest.ensureSupportedEnv(envName, ['local'])
+    anytest.ensureSupportedEnv(envName, ['dev-local'])
     usr = readVerifyOptVal(request, "--ftpuid")
     pwd = readVerifyOptVal(request, "--ftppwd")
     ftp = FTP()
@@ -111,7 +107,7 @@ def ftp(request, config, envName):
 
 @pytest.fixture(scope='session')
 def fileService(request, config, envName):
-    anytest.ensureSupportedEnv(envName, ['nprod-azure', 'nprod-outside'])
+    anytest.ensureSupportedEnv(envName, ['dev-local', 'tst-cloud'])
     key = readVerifyOptVal(request, "--storekey")
     return FileService(account_name=config['STORAGE_ACCOUNT'], account_key=key)
 

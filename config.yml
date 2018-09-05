@@ -1,19 +1,23 @@
 env:
-  local:
+  dev-local:
     API_BASE_URL: https://jsonplaceholder.typicode.com/
-    API_INPUT_DIR: resources/input
 
     DB_CONN: DRIVER={Microsoft Access Driver (*.mdb)};DBQ=resources\TestConn.mdb;
-    COSMOSDB_URL: NOT_SUPPORTED
-    COSMOSDB_COLL_PATH: NOT_SUPPORTED
+    DB_PREFIX: 'dbo.'
 
-    BID_FILES_DIR: resources/Bids
-    STORAGE_ACCOUNT: NOT_SUPPORTED
+    COSMOSDB_URL: https://some-cosmos-server.azure.com:443
+    COSMOSDB_COLL_PATH: dbs/some-db/colls/some-collection
+
+    BID_FILES_DIR: resources/bids
+    xxxBID_FILES_DIR: STORAGE_LOCATION=today
+
+    STORAGE_ACCOUNT: azure-account-name
+    xxxSTORAGE_LOCATION: azure-location-name
     STORAGE_LOCATION: NOT_SUPPORTED
 
     FTP_HOST: ftp.aao.gov.au
     FTP_PORT: 21
-    FTP_LOCAL_EXPORT_DIR: NOT_SUPPORTED
-    FTP_LOCAL_IMPORT_DIR: NOT_SUPPORTED
     FTP_REMOTE_DIR: pub
 
+
+  tst-cloud:

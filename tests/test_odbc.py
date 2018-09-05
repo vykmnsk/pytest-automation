@@ -3,10 +3,10 @@ import anytest
 
 
 def test_deleteInsertSelect(envName, dbConn):
-    anytest.ensureSupportedEnv(envName, ['local'])
+    anytest.ensureSupportedEnv(envName, ['dev-local'])
 
-    if (envName.lower() != 'local'):
-        pytest.skip(f'only "local" environment supported but not env={envName}')
+    if (envName.lower() != 'dev-local'):
+        pytest.skip(f'only "dev-local" environment supported but not env={envName}')
     cursor, _ = dbConn
     table = 'Table1'
     dbColumn = 'name'
