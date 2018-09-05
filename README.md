@@ -23,8 +23,12 @@
     pip install -r requirements.txt
     ```
 
-1. Run all tests (with verbose output, print and reason for skips)
+1. Set test env and run all tests (with verbose output, print and reason for skips)
     ```
+    set PYTEST_ADDOPTS='--env=dev-local --apicode=secret1 --dbuid=secret2 --dbpwd=secret3 --ftpuid=secret4 --ftppwd=secret5 --cosmoskey=secret6 --storekey=secret7'
+    set HTTPS_PROXY=
+    set HTTP_PROXY=
+
     pytest -svvrs ./tests
     ```
 
@@ -56,7 +60,10 @@ ensure contains:
 build and run the docker container and:
 - pass PYTEST_ADDOPTS env variable with secret key=value arguments
 - mount a host directory into the container to see the test results
-
     ```
-    docker run -it --rm -v /host/dir:/docker/volume... -e PYTEST_ADDOPTS='--env=tst-cloud --apicode=secret1 --dbuid=secret2 --dbpwd=secret3 --ftpuid=secret4 --ftppwd=secret5 --cosmoskey=secret6 --storekey=secret7 --dbinfo-uid=secret8 --dbinfo-pwd=secret9'
+    export PYTEST_ADDOPTS='--env=tst-cloud --apicode=secret1 --dbuid=secret2 --dbpwd=secret3 --ftpuid=secret4 --ftppwd=secret5 --cosmoskey=secret6 --storekey=secret7'
+    export HTTPS_PROXY=
+    export HTTP_PROXY=
+
+    docker run -e PYTEST_ADDOPTS -e HTTPS_PROXY -e HTTP_PROXY -it --rm ubu-py-mssql-ta -v /host/dir:/docker/results/dir ubu-py-mssql-ta
     ```
